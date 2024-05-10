@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:quicktask/pages/homepage.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('tasks');
+
   runApp(const MyApp());
 }
 
@@ -11,16 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.yellow,
-          elevation: 0,
-          centerTitle: true,
-        ),  
-      )
-    );
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.yellow,
+            elevation: 0,
+            centerTitle: true,
+          ),
+        ));
   }
 }

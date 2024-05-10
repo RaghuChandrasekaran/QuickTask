@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quicktask/data/localdatabase.dart';
 import '../widgets/todotile.dart';
 import '../widgets/dialogbox.dart';
 
@@ -11,8 +12,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _taskInputController = TextEditingController();
+  TodoLocalDatabase db = TodoLocalDatabase();
 
-  List toDoList = [];
+  @override
+  void initState() {
+    db.createInitialTasks();
+    db.loadTasks();
+    super.initState();
+  }
 
   void createNewTask() {
     showDialog(
@@ -28,23 +35,26 @@ class _HomePageState extends State<HomePage> {
   void saveNewTask() {
     if (_taskInputController.text.isNotEmpty) {
       setState(() {
-        toDoList.add([_taskInputController.text, false]);
+        db.toDoList.add([_taskInputController.text, false]);
         _taskInputController.clear();
       });
       Navigator.of(context).pop();
+      db.updateTasks();
     }
   }
 
   void deleteTask(int index) {
     setState(() {
-      toDoList.removeAt(index);
+      db.toDoList.removeAt(index);
     });
+    db.updateTasks();
   }
 
   void checkboxChanged(bool? value, int index) {
     setState(() {
-      toDoList[index][1] = !toDoList[index][1];
+      db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateTasks();
   }
 
   @override
@@ -57,11 +67,11 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
-        itemCount: toDoList.length,
+        itemCount: db.toDoList.length,
         itemBuilder: (context, index) {
           return ToDoTile(
-            taskName: toDoList[index][0],
-            taskCompleted: toDoList[index][1],
+            taskName: db.toDoList[index][0],
+            taskCompleted: db.toDoList[index][1],
             onChanged: (value) => checkboxChanged(value, index),
             deleteTask: (context) => deleteTask(index),
           );
