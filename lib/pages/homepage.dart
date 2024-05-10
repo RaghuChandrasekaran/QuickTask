@@ -35,6 +35,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    });
+  }
+
   void checkboxChanged(bool? value, int index) {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
@@ -57,6 +63,7 @@ class _HomePageState extends State<HomePage> {
             taskName: toDoList[index][0],
             taskCompleted: toDoList[index][1],
             onChanged: (value) => checkboxChanged(value, index),
+            deleteTask: (context) => deleteTask(index),
           );
         },
       ),
