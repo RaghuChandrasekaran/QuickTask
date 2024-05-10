@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/todotile.dart';
+import '../widgets/dialogbox.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,14 +10,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _taskInputController = TextEditingController();
 
-  List toDoList = [
-    ["my first task", false],
-    ["my second task", true],
-    ["my third task", false],
-    ["my fourth task", true],
-    ["my fifth task", false],
-  ];
+  List toDoList = [];
+
+  void createNewTask() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return DialogBox(
+              controller: _taskInputController,
+              onSave: saveNewTask,
+              onCancel: () => Navigator.of(context).pop());
+        });
+  }
+
+  void saveNewTask() {
+    if (_taskInputController.text.isNotEmpty) {
+      setState(() {
+        toDoList.add([_taskInputController.text, false]);
+        _taskInputController.clear();
+      });
+      Navigator.of(context).pop();
+    }
+  }
 
   void checkboxChanged(bool? value, int index) {
     setState(() {
@@ -28,6 +45,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Quick Task')),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        onPressed: createNewTask,
+        child: const Icon(Icons.add),
+      ),
       body: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (context, index) {
