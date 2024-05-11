@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:quicktask/pages/homepage.dart';
+import './env/env.dart';
 
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox('tasks');
 
+  final String keyApplicationId = Env.keyApplicationId;
+  final String keyClientKey = Env.keyClientKey;
+  const String keyParseServerUrl = 'https://parseapi.back4app.com';
+
+  await Parse().initialize(keyApplicationId, keyParseServerUrl,
+      clientKey: keyClientKey, debug: true);
   runApp(const MyApp());
 }
 
