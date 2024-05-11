@@ -17,8 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     //TODO: Use Stream builder to update the UI
-    db.createInitialTasks().whenComplete(() => setState(() {}));
-    db.loadTasks();
+    db.loadInitialTasks().whenComplete(() => setState(() {}));
     super.initState();
   }
 
