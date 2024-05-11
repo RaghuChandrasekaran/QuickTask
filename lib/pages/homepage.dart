@@ -15,8 +15,9 @@ class _HomePageState extends State<HomePage> {
   TodoLocalDatabase db = TodoLocalDatabase();
 
   @override
-  void initState() {
-    db.createInitialTasks();
+  void initState(){
+    //TODO: Use Stream builder to update the UI
+    db.createInitialTasks().whenComplete(() => setState(() {}));
     db.loadTasks();
     super.initState();
   }
@@ -35,26 +36,23 @@ class _HomePageState extends State<HomePage> {
   void saveNewTask() {
     if (_taskInputController.text.isNotEmpty) {
       setState(() {
-        db.toDoList.add([_taskInputController.text, false]);
+        db.saveNewTask(_taskInputController.text, false);
         _taskInputController.clear();
       });
       Navigator.of(context).pop();
-      db.updateTasks();
     }
   }
 
   void deleteTask(int index) {
     setState(() {
-      db.toDoList.removeAt(index);
+      db.deleteTask(index);
     });
-    db.updateTasks();
   }
 
   void checkboxChanged(bool? value, int index) {
     setState(() {
-      db.toDoList[index][1] = !db.toDoList[index][1];
+      db.checkTask(index);
     });
-    db.updateTasks();
   }
 
   @override
@@ -67,11 +65,11 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
-        itemCount: db.toDoList.length,
+        itemCount: db.getTasksCount(),
         itemBuilder: (context, index) {
           return ToDoTile(
-            taskName: db.toDoList[index][0],
-            taskCompleted: db.toDoList[index][1],
+            taskName: db.getTask(index).taskName,
+            taskCompleted: db.getTask(index).taskCompleted,
             onChanged: (value) => checkboxChanged(value, index),
             deleteTask: (context) => deleteTask(index),
           );

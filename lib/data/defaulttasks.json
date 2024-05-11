@@ -1,0 +1,5 @@
+[
+    { "taskName": "Add a task by clicking on the Add Icon" , "taskCompleted": false},
+    { "taskName": "This task is done" , "taskCompleted": true},
+    { "taskName": "Delete this task by sliding the task to left" , "taskCompleted": false}
+]

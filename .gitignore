@@ -28,3 +28,4 @@ doc/api/
 *.env
 .env
 env.g.dart
+*.g.dart
