@@ -6,10 +6,10 @@ import 'package:quicktask/data/task.dart';
 
 class TodoLocalDatabase {
   List<Task> _toDoList = [];
-  final _myBox = Hive.box<List<Task>>('tasks');
+  final _myBox = Hive.box<List>('tasks');
 
   Future<bool> createInitialTasks() async {
-    if (_myBox.get("toDoList") == null) {
+    if (getAllTasksFromLocalStorage() == null) {
       _toDoList = await readDefaultTasks();
       return true;
     }
@@ -23,9 +23,13 @@ class TodoLocalDatabase {
       return tasks;
   }
 
+  List<Task>? getAllTasksFromLocalStorage() {
+    return _myBox.get("toDoList")?.map((task) => task as Task).toList();
+  }
+
   void loadTasks() {
-    if (_myBox.get("toDoList") != null) {
-      _toDoList = _myBox.get("toDoList")!;
+    if (getAllTasksFromLocalStorage() != null) {
+      _toDoList = getAllTasksFromLocalStorage()!;
     }
   }
 

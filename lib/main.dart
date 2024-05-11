@@ -9,7 +9,7 @@ void main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
-  await Hive.openBox<List<Task>>('tasks');
+  await Hive.openBox<List>('tasks');
 
   final String keyApplicationId = Env.keyApplicationId;
   final String keyClientKey = Env.keyClientKey;
