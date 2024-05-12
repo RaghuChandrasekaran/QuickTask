@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quicktask/data/todolocalstore.dart';
+import 'package:quicktask/data/userremotestore.dart';
 import '../widgets/todotile.dart';
 import '../widgets/dialogbox.dart';
 
@@ -13,9 +14,10 @@ class ToDoListPage extends StatefulWidget {
 class _ToDoListPageState extends State<ToDoListPage> {
   final _taskInputController = TextEditingController();
   TodoLocalStore db = TodoLocalStore();
+  UserRemoteStore userRemoteStore = UserRemoteStore();
 
   @override
-  void initState(){
+  void initState() {
     //TODO: Use Stream builder to update the UI
     db.loadInitialTasks().whenComplete(() => setState(() {}));
     super.initState();
@@ -57,7 +59,16 @@ class _ToDoListPageState extends State<ToDoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quick Task')),
+      appBar: AppBar(
+        title: const Text('Quick Task'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: () => userRemoteStore.doUserLogout(context),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: createNewTask,

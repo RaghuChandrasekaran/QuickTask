@@ -1,13 +1,18 @@
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
+import 'package:quicktask/data/userremotestore.dart';
 import 'package:quicktask/model/task.dart';
 
 class ToDoRemoteStore {
 
+  UserRemoteStore userRemoteStore = UserRemoteStore();
+
   Future<Task> saveTask(String taskName, bool taskCompleted) async {
+    ParseACL acl = await userRemoteStore.getACL();
+
     final task = ParseObject('Task')
       ..set('taskName', taskName)
       ..set('taskCompleted', taskCompleted);
-
+    task.setACL(acl);
     await task.save();
     return Task.fromJson(task.toJson());
   }
