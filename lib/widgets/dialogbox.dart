@@ -24,7 +24,12 @@ class DialogBox extends StatelessWidget {
             TextField(
               controller: controller,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Add a new task"),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  floatingLabelStyle: TextStyle(color: Colors.black),
+                  hintText: "Add a new task"),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
