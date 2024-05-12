@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quicktask/data/localdatabase.dart';
+import 'package:quicktask/data/todolocalstore.dart';
 import '../widgets/todotile.dart';
 import '../widgets/dialogbox.dart';
 
@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _taskInputController = TextEditingController();
-  TodoLocalDatabase db = TodoLocalDatabase();
+  TodoLocalStore db = TodoLocalStore();
 
   @override
   void initState(){

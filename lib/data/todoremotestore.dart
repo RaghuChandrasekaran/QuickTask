@@ -1,7 +1,7 @@
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
-import 'package:quicktask/data/task.dart';
+import 'package:quicktask/model/task.dart';
 
-class ToDoRemoteDatabase {
+class ToDoRemoteStore {
 
   Future<Task> saveTask(String taskName, bool taskCompleted) async {
     final task = ParseObject('Task')

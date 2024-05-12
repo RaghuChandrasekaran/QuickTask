@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:quicktask/data/remotedatabase.dart';
-import 'package:quicktask/data/task.dart';
+import 'package:quicktask/data/todoremotestore.dart';
+import 'package:quicktask/model/task.dart';
 import 'package:collection/collection.dart';
 
-class TodoLocalDatabase {
+class TodoLocalStore {
+  
   List<Task> _toDoList = [];
   final _myBox = Hive.box<List>('tasks');
-  ToDoRemoteDatabase db = ToDoRemoteDatabase();
+  ToDoRemoteStore db = ToDoRemoteStore();
 
   Future<bool> loadInitialTasks() async {
     if (_myBox.get("toDoList") == null) {
