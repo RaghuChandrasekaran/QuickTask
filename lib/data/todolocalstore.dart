@@ -53,6 +53,7 @@ class TodoLocalStore {
       }
     }
     // TODO: Fix the sync logic. If edit happens on both local and remote, we need a better logic to resolve it.
+    // Read up on CRDT
     for (Task remoteTask in remoteTasks) {
       Task? localTask =
           localTasks.firstWhereOrNull((task) => task.id == remoteTask.id);
