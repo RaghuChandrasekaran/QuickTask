@@ -65,7 +65,10 @@ class _ToDoListPageState extends State<ToDoListPage> {
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
-            onPressed: () => userRemoteStore.doUserLogout(context),
+            onPressed: () { 
+              db.clearAllData();
+              userRemoteStore.doUserLogout(context); 
+            },
           ),
         ],
       ),

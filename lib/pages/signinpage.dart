@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:quicktask/data/userremotestore.dart';
 import 'package:quicktask/pages/resetpasswordpage.dart';
 import 'package:quicktask/pages/signuppage.dart';
 import 'package:quicktask/pages/todolistpage.dart';
 import 'package:quicktask/widgets/button.dart';
-import 'package:quicktask/widgets/message.dart';
 
 class Signinpage extends StatefulWidget {
   const Signinpage({super.key});

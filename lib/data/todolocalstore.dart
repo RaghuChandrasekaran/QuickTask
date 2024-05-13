@@ -17,9 +17,8 @@ class TodoLocalStore {
       _toDoList = await readDefaultTasks();
       _myBox.put("toDoList", _toDoList);
     } else {
-      _toDoList = getAllTasksFromLocal()!;
+      _toDoList = await syncDataFromRemote();
     }
-    syncDataFromRemote();
     return true;
   }
 
@@ -35,7 +34,7 @@ class TodoLocalStore {
     return _myBox.get("toDoList")?.map((task) => task as Task).toList();
   }
 
-  void syncDataFromRemote() async {
+  Future<List<Task>> syncDataFromRemote() async {
     List<Task> remoteTasks = await db.getAllTasks();
     List<Task> localTasks = getAllTasksFromLocal() ?? [];
     for (Task localTask in localTasks) {
@@ -71,6 +70,7 @@ class TodoLocalStore {
       }
     }
     _myBox.put("toDoList", _toDoList);
+    return _toDoList;
   }
 
   void saveNewTask(String taskName, bool taskCompleted) {
@@ -119,4 +119,10 @@ class TodoLocalStore {
   Task getTask(int index) {
     return _toDoList[index];
   }
+
+  void clearAllData() {
+    _toDoList.clear();
+    _myBox.put("toDoList", _toDoList);
+  }
+
 }
