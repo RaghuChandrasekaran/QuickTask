@@ -2,6 +2,12 @@
 
 QuickTask is an offline-first task management app designed to help users organize their tasks efficiently. QuickTask is using [Flutter](https://flutter.dev/) for its UI and [hive](https://docs.hivedb.dev/#/) as the local datastore and [Back4App](https://www.back4app.com/) as the remote datastore. 
 
+## Demo:
+
+
+https://github.com/RaghuChandrasekaran/quicktask/assets/7160211/e79d9da1-52e0-4e63-8899-2a5b0d12fa3e
+
+
 ## Features:
 
 ### 1. User Authentication:
