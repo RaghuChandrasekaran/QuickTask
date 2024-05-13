@@ -7,7 +7,7 @@ void main() async {
 
   await HiveInitializer.initialize();
   await ParseInitializer.initialize();
-  
+
   runApp(const MyApp());
 }
 
